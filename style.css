@@ -1,0 +1,51 @@
+.container {
+    display: grid;
+    grid-template-areas:
+        'header header'
+        'nav question'
+        'nav answers';
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: .5fr 1fr 3fr;
+    gap:10px;
+    height: auto;
+    background-color:rgb(185, 205, 206);
+}
+.header {
+    text-align: center;
+    align-content:center;
+    font-weight: bold;
+    font-size: xx-large;
+    background-color:aliceblue;
+    grid-area: header;
+}
+.nav {
+    display: flex;
+    flex-direction:column;
+    height:500px;
+    justify-content: space-evenly;
+    text-align: center;
+    font-weight: bold;
+    background-color:aliceblue;
+    grid-area: nav;
+}
+.question {
+    align-content: center;
+    text-align: center;
+    font-size:x-large;
+    font-weight: bold;
+    background-color:aliceblue;
+    grid-area: question;
+}
+.answers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color:aliceblue;
+    text-indent: 10%;
+    font-weight: bold;
+    grid-area: answers;
+}
+.submit {
+    text-align: center;
+    align-content: center;
+}
