@@ -2,19 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0
-">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-</header>
-<main>
-    <p id="time">Begin!</p>
-</main>
-<footer>
-    <script src="app.js" type="module"></script>
-</footer>
+    <div class="container">
+        <div class="header">Quiz: Quiz Title</div>
+        <div class="nav">
+            <div>Time remaining:
+            <p id="time">Begin!</p></div>
+            <div>Question 1:</div>
+            <div>Question 2:</div>
+            <div>Question 3:</div>
+            <div>Question 4:</div>
+            <div>Question 5:</div>
+            <div>Question 6:</div>
+            <div>Question 7:</div>
+            <div>Question 8:</div>
+            <div>Question 9:</div>
+            <div>Question 10:</div>
+        </div>
+        <div class="question">
+            What is the answer to this question?
+        </div>
+        <div class="answers">
+           <div><input type="radio" id="option-one" name="choice" value="1">
+                <label for="option-one">Option One</label></div>
+           <div><input type="radio" id="option-two" name="choice" value="2">
+                <label for="option-one">Option One</label></div>
+           <div><input type="radio" id="option-three" name="choice" value="3">
+                <label for="option-one">Option One</label></div>
+           <div><input type="radio" id="option-four" name="choice" value="4">
+                <label for="option-one">Option One</label></div>
+            <div class="submit"><button type="button">Submit</button></div>
+        </div>
+    </div>
+    <footer>
+        <script src="app.js" type="module"></script>
+    </footer>
 </body>
 </html>
