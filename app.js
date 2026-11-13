@@ -19,6 +19,9 @@ function startTimer() {
     }, 1000);
 }
 
+// questions
+let currentQuestion = 0;
+
 function questionsList() {
     for (i = 0; i < 10; i++) {
         // generate random number
@@ -48,28 +51,39 @@ function verifyQuestion(value, size)
     return true;
 }
 
-function loadQuestion() {
-    alert('loading question')
+function loadQuestion(value) {
+    // alert('loading question')
     fetch('./questions.json')
         .then(response => response.json())
         .then(data => {
             // console.log("Quiz Title:", data.quiz_title)
             // const firstQuestion = data.questions[0]
-            // console.log("First Question text:", firstQuestion.question)
+            // alert(JSON.stringify(data, null, 2))
+            // alert(data.questions[0])
+            // alert("First Question text:", data.questions[0].question)
             // console.log("First Answer choice:", firstQuestion.options[0])
             
-            const currentQ = data.questions[value];
-
-            document.getElementById("question").textContent = currentQ.question;
+            let title = data.questions[value];
+            document.getElementById("questionTitle").textContent = JSONtext(title.question);
+            document.getElementById("optionOne").textContent = JSONtext(title.options[0]);
+            document.getElementById("optionTwo").textContent = JSONtext(title.options[1]);
+            document.getElementById("optionThree").textContent = JSONtext(title.options[2]);
+            document.getElementById("optionFour").textContent = JSONtext(title.options[3]);
         })
+
+    currentQuestion = value;
 }
 
 function checkAnswer() {
 
 }
 
+function JSONtext(text) {
+    return JSON.stringify(text).replace(/"/g, '')
+}
+
 startTimer();
-questionsList();
+// questionsList();
 
 loadQuestion(1);
 // alert('hello');
