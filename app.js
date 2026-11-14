@@ -91,9 +91,10 @@ function loadQuestion(value) {
         document.getElementById("option_two").textContent = JSONtext(title.options[1]);
         document.getElementById("option_three").textContent = JSONtext(title.options[2]);
         document.getElementById("option_four").textContent = JSONtext(title.options[3]);
-        // correctAnswers[value] = Number(title.answer);
-    });
+        correctAnswers[value] = Number(title.answer);
 
+        // question answered tooltip update
+    });
     currentQuestion = value;
     
     updateLinks();
@@ -105,16 +106,22 @@ function loadQuestion(value) {
         let selected = document.querySelector('input[name="choice"]:checked');
 
         if (selected) {
-            checkAnswer(Number(selected.value));
+            if(checkAnswer(Number(selected.value))) {
+                if (currentQuestion >= 9) {
+                    submitQuiz();
+                } else {
+                    loadQuestion (currentQuestion + 1);
+                }
+            }
         } 
         else {
             alert('Please select an option before continuing.');
         }
     }
 
-    document.getElementById('next').addEventListener('click', nextButton);
+    // document.getElementById('next').addEventListener('click', nextButton);
     function nextButton() {
-        answers[currentQuestion] = Number(document.querySelector('input[name="choice"]:checked').value);
+        answers[currentQuestion] = answer;
         loadQuestion((currentQuestion + 1) % 10);
     }
 
@@ -134,10 +141,11 @@ function checkAnswer(answer) {
     answers[currentQuestion] = answer;
     if (answers[currentQuestion] == correctAnswers[currentQuestion]) {
         alert('Great job!');
-        loadQuestion(currentQuestion + 1);
+        return true;
     }
     else {
         alert('Incorrect! Try again.');
+        return false;
     }
 }
 
