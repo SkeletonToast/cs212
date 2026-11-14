@@ -39,6 +39,7 @@ function questionsList() {
     }
 }
 
+// checks to make sure it's not a duplicate question
 function verifyQuestion(value, size) {
     for (let i = 0; i < size; i++) {
         if (questions[i] == value) {return false;}
@@ -76,25 +77,28 @@ function updateLinks() {
 }
 
 function loadQuestion(value) {
+    // clear selected radio buttons
     document.querySelectorAll(`input[name="choice"]`).forEach(radio => radio.checked = false);
-    if (answers[value] != -1)
-    {
+    // if selected question has already been answered, re-check the relevant radio button
+    if (answers[value] != -1) {
         document.querySelector(`input[name="choice"][value="${answers[value]}"]`).checked = true;
     }
 
+    // this fetches from the json file, and writes the relevant data to the question screen
     fetch('./questions.json')
     .then(response => response.json())
     .then(data => {
-        let title = data.questions[questions[value]];
-        document.getElementById("question_title").textContent = ("Question " + (value + 1) + ": " + JSONtext(title.question));
-        document.getElementById("option_one").textContent = JSONtext(title.options[0]);
-        document.getElementById("option_two").textContent = JSONtext(title.options[1]);
-        document.getElementById("option_three").textContent = JSONtext(title.options[2]);
-        document.getElementById("option_four").textContent = JSONtext(title.options[3]);
-        correctAnswers[value] = Number(title.answer);
-
-        // question answered tooltip update
+        let question = data.questions[questions[value]];
+            // question is the data object from the JSON file
+        document.getElementById("question_title").textContent = ("Question " + (value + 1) + ": " + JSONtext(question.question));
+        document.getElementById("option_one").textContent = JSONtext(question.options[0]);
+        document.getElementById("option_two").textContent = JSONtext(question.options[1]);
+        document.getElementById("option_three").textContent = JSONtext(question.options[2]);
+        document.getElementById("option_four").textContent = JSONtext(question.options[3]);
+        correctAnswers[value] = Number(question.answer);
     });
+    // update the currentQuestion score whenever a new question is loaded,
+    // so we can track which question of the quiz the user is currently focused on
     currentQuestion = value;
     
     updateLinks();
@@ -137,6 +141,7 @@ function loadQuestion(value) {
         finalScore();
     }
 
+// checks answer, returns true/false based on whether the answer is correct. this is called by the submit button
 function checkAnswer(answer) {
     answers[currentQuestion] = answer;
     if (answers[currentQuestion] == correctAnswers[currentQuestion]) {
@@ -149,6 +154,7 @@ function checkAnswer(answer) {
     }
 }
 
+// totals up the score and displays it as an alert
 function finalScore() {
     let correct = 0;
     for (let i = 0; i < 10; i++) {
