@@ -5,42 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web Page</title>
     <link rel="stylesheet" href="style.css">
+    <script src="app.js" type="module"></script>
 </head>
 <body>
     <div class="container">
-        <div class="header">Quiz: Quiz Title</div>
+        <div class="header">Quiz: <span id="quizTitle">Quiz Title</span></div>
         <div class="nav">
             <div>Time remaining:
             <p id="time">Begin!</p></div>
-            <div>Question 1</div>
-            <div>Question 2</div>
-            <div>Question 3</div>
-            <div>Question 4</div>
-            <div>Question 5</div>
-            <div>Question 6</div>
-            <div>Question 7</div>
-            <div>Question 8</div>
-            <div>Question 9</div>
-            <div>Question 10</div>
+            <a href="#" class="question-link" data-index="0">Question 1</a>
+            <a href="#" class="question-link" data-index="1">Question 2</a>
+            <a href="#" class="question-link" data-index="2">Question 3</a>
+            <a href="#" class="question-link" data-index="3">Question 4</a>
+            <a href="#" class="question-link" data-index="4">Question 5</a>
+            <a href="#" class="question-link" data-index="5">Question 6</a>
+            <a href="#" class="question-link" data-index="6">Question 7</a>
+            <a href="#" class="question-link" data-index="7">Question 8</a>
+            <a href="#" class="question-link" data-index="8">Question 9</a>
+            <a href="#" class="question-link" data-index="9">Question 10</a>
         </div>
         <div class="question">
-            <span id="questionTitle">Question</span>
+            <span id="question_title">Question</span>
         </div>
         <div class="answers">
-           <div><input type="radio" id="option-one" name="choice" value="1">
-                <label for="option-one"><span id="optionOne">Option One</span></label></div>
-            <div><input type="radio" id="option-two" name="choice" value="2">
-                <label for="option-two"><span id="optionTwo">Option Two</span></label></div>
-            <div><input type="radio" id="option-three" name="choice" value="3">
-                <label for="option-two"><span id="optionThree">Option Three</span></label></div>
-            <div><input type="radio" id="option-four" name="choice" value="4">
-                <label for="option-two"><span id="optionFour">Option Four</span></label></div>
-            <div class="submit"><button type="button">Submit</button></div>
+           <div><input type="radio" id="option-one" name="choice" value="0">
+                <label for="option-one"><span id="option_one">Option One</span></label></div>
+            <div><input type="radio" id="option-two" name="choice" value="1">
+                <label for="option-two"><span id="option_two">Option Two</span></label></div>
+            <div><input type="radio" id="option-three" name="choice" value="2">
+                <label for="option-three"><span id="option_three">Option Three</span></label></div>
+            <div><input type="radio" id="option-four" name="choice" value="3">
+                <label for="option-four"><span id="option_four">Option Four</span></label></div>
+            <div class="submit"><button type="button" id="submit">Submit</button></div>
+            <div class="submit"><button type="button" id="next">Next</button></div>
+            <div class="submit"><button type="button" id="submit_quiz">Submit Quiz</button></div>
         </div>
     </div>
     <footer>
-        <script src="app.js" type="module"></script>
-        <!-- <script src="questions.json" type="module"></script> -->
     </footer>
 </body>
 </html>
