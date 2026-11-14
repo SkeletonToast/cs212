@@ -37,6 +37,8 @@ async function qCounter() {
         // but idk how to remedy this. just setting qCount doesn't work
     })
 }
+// qcounter doesn't do anything. i wanted it to set the question count from the json but it doesn't work
+// so i just set it to 10 here which works fine.
 qCount = 10;
 
 function questionsList() {
@@ -44,12 +46,12 @@ function questionsList() {
     let value = -1;
     for (let i = 0; i < qCount; i++) {
         // generate random number
-        // check to see if it's already in the array
-        // if not, add it, if so, reduce i and try again
         while (!verify)
         {
             value = randomInt(0, (qCount - 1));
             verify = verifyQuestion(value, (i + 1))
+                // check to see if it's already in the array
+            // if verifyQuestion fails, it just tries again until it works
         }
         questions[i] = value
         verify = false;
@@ -68,6 +70,7 @@ function verifyQuestion(value, size) {
 document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.question-link');
     
+    // event listener for whichever link is clicked, loads the relevant question
     links.forEach(link => {
         link.addEventListener('click', () => {
             const index = link.getAttribute('data-index');
@@ -76,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// this goes through and updates the display text of all the sidebar links
+// this is what causes them to say (Correct) or (Answered)
 function updateLinks() {
     const links = document.querySelectorAll('.question-link');
     
@@ -94,11 +99,11 @@ function updateLinks() {
 }
 
 function loadQuestion(value) {
-    // clear selected radio buttons
     document.querySelectorAll(`input[name="choice"]`).forEach(radio => radio.checked = false);
-    // if selected question has already been answered, re-check the relevant radio button
+        // clear selected radio buttons
     if (answers[value] !== -1) {
         document.querySelector(`input[name="choice"][value="${answers[value]}"]`).checked = true;
+            // if selected question has already been answered, re-check the relevant radio button
     }
 
     // this fetches from the json file, and writes the relevant data to the question screen
@@ -113,6 +118,7 @@ function loadQuestion(value) {
         document.getElementById("option_three").textContent = JSONtext(question.options[2]);
         document.getElementById("option_four").textContent = JSONtext(question.options[3]);
         correctAnswers[value] = Number(question.answer);
+            // write the correct answer to the correctAnswers array, so we can easily compare it later
     });
     // update the currentQuestion score whenever a new question is loaded,
     // so we can track which question of the quiz the user is currently focused on
@@ -163,6 +169,7 @@ function loadQuestion(value) {
         }
         // if all questions are answered, calculates final store and finishes quiz
         finalScore();
+        timerOn = false;
     }
 
 // checks answer, returns true/false based on whether the answer is correct. this is called by the submit button
