@@ -1,4 +1,5 @@
 let timeLeft = 300;
+let timerOn = true;
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
@@ -6,9 +7,11 @@ function randomInt(min, max) {
 
 function startTimer() {
     const timerInterval = setInterval(() => {
-        if (timeLeft <= 0) {
+        if (timeLeft <= 0 || !timerOn) {
             clearInterval(timerInterval);
-            alert("Time's up!");
+            if (timeLeft <= 0) {
+                alert("Time's up!");
+            }
         } else {
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
@@ -56,7 +59,7 @@ function questionsList() {
 // checks to make sure it's not a duplicate question
 function verifyQuestion(value, size) {
     for (let i = 0; i < size; i++) {
-        if (questions[i] == value) {return false;}
+        if (questions[i] === value) {return false;}
     }
     return true;
 }
@@ -66,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.question-link');
     
     links.forEach(link => {
-        link.addEventListener('click', (event) => {
+        link.addEventListener('click', () => {
             const index = link.getAttribute('data-index');
             loadQuestion(Number(index));
         });
@@ -78,8 +81,8 @@ function updateLinks() {
     
     links.forEach(link => {
         const index = Number(link.getAttribute('data-index'));
-        if (answers[index] != -1) {
-            if (correctAnswers[index] != -1 && answers[index] == correctAnswers[index])
+        if (answers[index] !== -1) {
+            if (correctAnswers[index] !== -1 && answers[index] === correctAnswers[index])
             {
                 link.textContent = ('Question ' + (index + 1) + ' (Correct)')
             }
@@ -94,7 +97,7 @@ function loadQuestion(value) {
     // clear selected radio buttons
     document.querySelectorAll(`input[name="choice"]`).forEach(radio => radio.checked = false);
     // if selected question has already been answered, re-check the relevant radio button
-    if (answers[value] != -1) {
+    if (answers[value] !== -1) {
         document.querySelector(`input[name="choice"][value="${answers[value]}"]`).checked = true;
     }
 
@@ -153,7 +156,7 @@ function loadQuestion(value) {
         updateLinks();
         for (let i = 0; i < qCount; i++) {
             // tests to see if there are any unanswered questions
-            if (answers[i] == -1) {
+            if (answers[i] === -1) {
                 alert('All questions must be answered before submitting.');
                 return;
             }
@@ -167,7 +170,7 @@ function checkAnswer(answer) {
     // writes the selected answer to the stored array
     answers[currentQuestion] = answer;
     // checks to see if answer is correct or not, and returns
-    if (answers[currentQuestion] == correctAnswers[currentQuestion]) {
+    if (answers[currentQuestion] === correctAnswers[currentQuestion]) {
         alert('Great job!');
         return true;
     }
@@ -183,7 +186,7 @@ function finalScore() {
     let correct = 0;
     // looks through array of correct answers, and compares them
     for (let i = 0; i < qCount; i++) {
-        if (answers[i] == correctAnswers[i]) {
+        if (answers[i] === correctAnswers[i]) {
             correct++;
         }
     }
