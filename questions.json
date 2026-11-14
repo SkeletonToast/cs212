@@ -1,54 +1,55 @@
 {
     "quiz_title": "CIS212 Project",
+    "question_count": 10,
     "questions": [
         {
-            "question": "Sample question 0",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
-            "answer":1
-        },
-        {
-            "question": "Sample question 1",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
-            "answer":2
-        },
-        {
-            "question": "Sample question 2",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
-            "answer":3
-        },
-        {
-            "question": "Sample question 3",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
+            "question": "Which of these pop stars is not Canadian?",
+            "options": ["Justin Timberlake","Michael Buble","Justin Bieber","The Weeknd"],
             "answer":0
         },
         {
-            "question": "Sample question 4",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
-            "answer":1
-        },
-        {
-            "question": "Sample question 5",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
+            "question": "How old do you have to be to buy cigarettes in Japan?",
+            "options": ["16","18","20","21"],
             "answer":2
         },
         {
-            "question": "Sample question 6",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
-            "answer":3
-        },
-        {
-            "question": "Sample question 7",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
-            "answer":0
-        },
-        {
-            "question": "Sample question 8",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
+            "question": "What do you need to craft a potion of night vision in Minecraft?",
+            "options": ["Fermented Spider Eye","Golden Carrot","Red Mushroom","Sugarcane"],
             "answer":1
         },
         {
-            "question": "Sample question 9",
-            "options": ["Answer 1","Answer 2","Answer 3","Answer 4"],
+            "question": "Which of these pop stars haven't dated Taylor Swift?",
+            "options": ["Chris Martin (Coldplay)","Matty Healy (The 1975)","Adam Young (Owl City)","John Mayer"],
+            "answer":0
+        },
+        {
+            "question": "How many moons does Jupiter have?",
+            "options": ["91","85","61","115"],
+            "answer":3
+        },
+        {
+            "question": "What is Ornithology the study of?",
+            "options": ["Ancient Greek poetry","Dead languages","Birds","Transmutation of metals"],
+            "answer":2
+        },
+        {
+            "question": "What is Eschatology the study of?",
+            "options": ["Abstract artwork","Rain and snow","Fashion design using animal parts (feathers, bones, etc.)","The end of days"],
+            "answer":3
+        },
+        {
+            "question": "Which of these is not a real Dr. Pepper knockoff?",
+            "options": ["Dr. Faygo","Dr. Fiesta","Dr. Chill","Dr. Orchard"],
+            "answer":0
+        },
+        {
+            "question": "What gemstone is the birthstone of May?",
+            "options": ["Alexandrite","Emerald","Topaz","Citrine"],
+            "answer":1
+        },
+        {
+            "question": "In Akira (1988), what does Kaneda's gang call themselves?",
+            "options": ["The Centipedes","The Angel Hunters","The Capsules","The Gargoyles"],
             "answer":2
         }
     ]
