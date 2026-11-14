@@ -40,7 +40,7 @@
         {
             "question": "Which of these is not a real Dr. Pepper knockoff?",
             "options": ["Dr. Faygo","Dr. Fiesta","Dr. Chill","Dr. Orchard"],
-            "answer":0
+            "answer":3
         },
         {
             "question": "What gemstone is the birthstone of May?",

@@ -21,17 +21,31 @@ function startTimer() {
 
 // questions
 let currentQuestion = 0;
+// qCount is set upon page load
+let qCount = qCounter();
+// set number of questions and title
+async function qCounter() {
+    await fetch('./questions.json')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("quizTitle").textContent = JSONtext(data.quiz_title);
+        return Number(JSONtext(data.question_count));
+        // i am fairly certain this doesn't work because it doesn't get out of the fetch bit?
+        // but idk how to remedy this. just setting qCount doesn't work
+    })
+}
+qCount = 10;
 
 function questionsList() {
     let verify = false;
     let value = -1;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < qCount; i++) {
         // generate random number
         // check to see if it's already in the array
         // if not, add it, if so, reduce i and try again
         while (!verify)
         {
-            value = randomInt(0, 9);
+            value = randomInt(0, (qCount - 1));
             verify = verifyQuestion(value, (i + 1))
         }
         questions[i] = value
@@ -110,40 +124,49 @@ function loadQuestion(value) {
         let selected = document.querySelector('input[name="choice"]:checked');
 
         if (selected) {
+            // checks if they're correct or not
             if(checkAnswer(Number(selected.value))) {
-                if (currentQuestion >= 9) {
+                // if they're correct, and they're on the last question, it attempts to submit the quiz
+                if (currentQuestion >= (qCount - 1)) {
                     submitQuiz();
                 } else {
+                    // if not on the last question, it just loads the next question
                     loadQuestion (currentQuestion + 1);
                 }
             }
         } 
         else {
+            // if no option is selected
             alert('Please select an option before continuing.');
         }
     }
 
     // document.getElementById('next').addEventListener('click', nextButton);
+        // this was basically just used for testing, you can ignore it
     function nextButton() {
         answers[currentQuestion] = answer;
-        loadQuestion((currentQuestion + 1) % 10);
+        loadQuestion((currentQuestion + 1) % qCount);
     }
 
     document.getElementById('submit_quiz').addEventListener('click', submitQuiz);
     function submitQuiz() {
         updateLinks();
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < qCount; i++) {
+            // tests to see if there are any unanswered questions
             if (answers[i] == -1) {
                 alert('All questions must be answered before submitting.');
                 return;
             }
         }
+        // if all questions are answered, calculates final store and finishes quiz
         finalScore();
     }
 
 // checks answer, returns true/false based on whether the answer is correct. this is called by the submit button
 function checkAnswer(answer) {
+    // writes the selected answer to the stored array
     answers[currentQuestion] = answer;
+    // checks to see if answer is correct or not, and returns
     if (answers[currentQuestion] == correctAnswers[currentQuestion]) {
         alert('Great job!');
         return true;
@@ -156,14 +179,17 @@ function checkAnswer(answer) {
 
 // totals up the score and displays it as an alert
 function finalScore() {
+    // count of correct answers
     let correct = 0;
-    for (let i = 0; i < 10; i++) {
+    // looks through array of correct answers, and compares them
+    for (let i = 0; i < qCount; i++) {
         if (answers[i] == correctAnswers[i]) {
             correct++;
         }
     }
 
-    let score = ((correct / 10) * 100);
+    // total percentage score
+    let score = ((correct / qCount) * 100);
     if (score >= 90) {
         alert('Fantastic work! You got ' + score +'%!')
     } else if (score >= 80) {
@@ -202,10 +228,3 @@ questionsList();
 
 // load first question for display
 loadQuestion(0);
-
-// set default values
-fetch('./questions.json')
-.then(response => response.json())
-.then(data => {
-    document.getElementById("quizTitle").textContent = JSONtext(data.quiz_title);
-})
