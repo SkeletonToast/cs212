@@ -1,4 +1,4 @@
-let timeLeft = 300;
+let timeLeft = 3;
 let timerOn = true;
 
 function randomInt(min, max) {
@@ -135,22 +135,18 @@ function loadQuestion(value) {
             // change this later to use a for loop, rename elements to be numbers, so you can just recur
         correctAnswers[value] = Number(question.answer);
         if (answers[value] !== -1 || timeLeft <= 0) {
-            document.getElementById("option_one").textContent = JSONtext(question.options[0]) + " (Incorrect)";
-            document.getElementById("option_two").textContent = JSONtext(question.options[1]) + " (Incorrect)";
-            document.getElementById("option_three").textContent = JSONtext(question.options[2]) + " (Incorrect)";
-            document.getElementById("option_four").textContent = JSONtext(question.options[3]) + " (Incorrect)";
             switch (correctAnswers[value]) {
                 case 0:
-                    document.getElementById("option_one").textContent = JSONtext(question.options[0]) + " (Correct)";
+                    document.getElementById("option_one").textContent = JSONtext(question.options[0]) + " (Correct Answer)";
                     break;
                 case 1:
-                    document.getElementById("option_two").textContent = JSONtext(question.options[1]) + " (Correct)";
+                    document.getElementById("option_two").textContent = JSONtext(question.options[1]) + " (Correct Answer)";
                     break;
                 case 2:
-                    document.getElementById("option_three").textContent = JSONtext(question.options[2]) + " (Correct)";
+                    document.getElementById("option_three").textContent = JSONtext(question.options[2]) + " (Correct Answer)";
                     break;
                 case 3:
-                    document.getElementById("option_four").textContent = JSONtext(question.options[3]) + " (Correct)";
+                    document.getElementById("option_four").textContent = JSONtext(question.options[3]) + " (Correct Answer)";
                     break;
             }
         }
