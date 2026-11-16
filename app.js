@@ -92,7 +92,7 @@ function updateLinks() {
                 link.textContent = ('Question ' + (index + 1) + ' (Correct)')
             }
             else {
-                link.textContent = ('Question ' + (index + 1) + ' (Answered)')
+                link.textContent = ('Question ' + (index + 1) + ' (Incorrect)')
             }
         }
     });
@@ -103,7 +103,13 @@ function loadQuestion(value) {
         // clear selected radio buttons
     if (answers[value] !== -1) {
         document.querySelector(`input[name="choice"][value="${answers[value]}"]`).checked = true;
-            // if selected question has already been answered, re-check the relevant radio button
+        // if selected question has already been answered, re-check the relevant radio button
+    }
+    if (answers[value] !== -1 || timeLeft === 0) {
+        document.querySelector(`input[name="choice"][value="0`).disabled = true;
+        document.querySelector(`input[name="choice"][value="1`).disabled = true;
+        document.querySelector(`input[name="choice"][value="2`).disabled = true;
+        document.querySelector(`input[name="choice"][value="3`).disabled = true;
     }
 
     // this fetches from the json file, and writes the relevant data to the question screen
@@ -179,12 +185,13 @@ function checkAnswer(answer) {
     // checks to see if answer is correct or not, and returns
     if (answers[currentQuestion] === correctAnswers[currentQuestion]) {
         alert('Great job!');
-        return true;
+        // return true;
     }
     else {
-        alert('Incorrect! Try again.');
-        return false;
+        alert('Incorrect!');
+        // return false;
     }
+    return true;
 }
 
 // totals up the score and displays it as an alert
