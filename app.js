@@ -11,6 +11,7 @@ function startTimer() {
             clearInterval(timerInterval);
             if (timeLeft <= 0) {
                 alert("Time's up!");
+                submitQuiz();
             }
         } else {
             const minutes = Math.floor(timeLeft / 60);
@@ -87,7 +88,7 @@ function updateLinks() {
     links.forEach(link => {
         const index = Number(link.getAttribute('data-index'));
         if (answers[index] !== -1) {
-            if (correctAnswers[index] !== -1 && answers[index] === correctAnswers[index])
+            if (answers[index] !== -1 && correctAnswers[index] !== -1 && answers[index] === correctAnswers[index])
             {
                 link.textContent = ('Question ' + (index + 1) + ' (Correct)')
             }
@@ -95,21 +96,29 @@ function updateLinks() {
                 link.textContent = ('Question ' + (index + 1) + ' (Incorrect)')
             }
         }
+        if (timeLeft <= 0)
+        {
+            link.textContent = ('Question ' + (index + 1) + ' (Unanswered)')
+        }
     });
 }
 
 function loadQuestion(value) {
     document.querySelectorAll(`input[name="choice"]`).forEach(radio => radio.checked = false);
+    document.querySelector(`input[name="choice"][value="0"]`).disabled = false;
+    document.querySelector(`input[name="choice"][value="1"]`).disabled = false;
+    document.querySelector(`input[name="choice"][value="2"]`).disabled = false;
+    document.querySelector(`input[name="choice"][value="3"]`).disabled = false;
         // clear selected radio buttons
     if (answers[value] !== -1) {
         document.querySelector(`input[name="choice"][value="${answers[value]}"]`).checked = true;
         // if selected question has already been answered, re-check the relevant radio button
     }
-    if (answers[value] !== -1 || timeLeft === 0) {
-        document.querySelector(`input[name="choice"][value="0`).disabled = true;
-        document.querySelector(`input[name="choice"][value="1`).disabled = true;
-        document.querySelector(`input[name="choice"][value="2`).disabled = true;
-        document.querySelector(`input[name="choice"][value="3`).disabled = true;
+    if (answers[value] !== -1 || timeLeft <= 0) {
+        document.querySelector(`input[name="choice"][value="0"]`).disabled = true;
+        document.querySelector(`input[name="choice"][value="1"]`).disabled = true;
+        document.querySelector(`input[name="choice"][value="2"]`).disabled = true;
+        document.querySelector(`input[name="choice"][value="3"]`).disabled = true;
     }
 
     // this fetches from the json file, and writes the relevant data to the question screen
@@ -123,7 +132,28 @@ function loadQuestion(value) {
         document.getElementById("option_two").textContent = JSONtext(question.options[1]);
         document.getElementById("option_three").textContent = JSONtext(question.options[2]);
         document.getElementById("option_four").textContent = JSONtext(question.options[3]);
+            // change this later to use a for loop, rename elements to be numbers, so you can just recur
         correctAnswers[value] = Number(question.answer);
+        if (answers[value] !== -1 || timeLeft <= 0) {
+            document.getElementById("option_one").textContent = JSONtext(question.options[0]) + " (Incorrect)";
+            document.getElementById("option_two").textContent = JSONtext(question.options[1]) + " (Incorrect)";
+            document.getElementById("option_three").textContent = JSONtext(question.options[2]) + " (Incorrect)";
+            document.getElementById("option_four").textContent = JSONtext(question.options[3]) + " (Incorrect)";
+            switch (correctAnswers[value]) {
+                case 0:
+                    document.getElementById("option_one").textContent = JSONtext(question.options[0]) + " (Correct)";
+                    break;
+                case 1:
+                    document.getElementById("option_two").textContent = JSONtext(question.options[1]) + " (Correct)";
+                    break;
+                case 2:
+                    document.getElementById("option_three").textContent = JSONtext(question.options[2]) + " (Correct)";
+                    break;
+                case 3:
+                    document.getElementById("option_four").textContent = JSONtext(question.options[3]) + " (Correct)";
+                    break;
+            }
+        }
             // write the correct answer to the correctAnswers array, so we can easily compare it later
     });
     // update the currentQuestion score whenever a new question is loaded,
@@ -165,12 +195,15 @@ function loadQuestion(value) {
 
     document.getElementById('submit_quiz').addEventListener('click', submitQuiz);
     function submitQuiz() {
+        loadQuestion(currentQuestion);
         updateLinks();
-        for (let i = 0; i < qCount; i++) {
-            // tests to see if there are any unanswered questions
-            if (answers[i] === -1) {
-                alert('All questions must be answered before submitting.');
-                return;
+        if (timeLeft > 0) {
+            for (let i = 0; i < qCount; i++) {
+                // tests to see if there are any unanswered questions
+                if (answers[i] === -1) {
+                    alert('All questions must be answered before submitting.');
+                    return;
+                }
             }
         }
         // if all questions are answered, calculates final store and finishes quiz
@@ -200,7 +233,7 @@ function finalScore() {
     let correct = 0;
     // looks through array of correct answers, and compares them
     for (let i = 0; i < qCount; i++) {
-        if (answers[i] === correctAnswers[i]) {
+        if (answers[i] === correctAnswers[i] && correctAnswers[i] !== -1) {
             correct++;
         }
     }
