@@ -18,9 +18,9 @@
             "answer":1
         },
         {
-            "question": "Which of these pop stars haven't dated Taylor Swift?",
-            "options": ["Chris Martin (Coldplay)","Matty Healy (The 1975)","Adam Young (Owl City)","John Mayer"],
-            "answer":0
+            "question": "What is the state tree of Arizona?",
+            "options": ["Douglas Fir","Ponderosa Pine","Palo Verde","Quaking Aspen"],
+            "answer":2
         },
         {
             "question": "How many moons does Jupiter have?",

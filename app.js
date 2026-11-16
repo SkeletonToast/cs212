@@ -1,4 +1,4 @@
-let timeLeft = 300;
+let timeLeft = 3;
 let timerOn = true;
 
 function randomInt(min, max) {
@@ -96,7 +96,7 @@ function updateLinks() {
                 link.textContent = ('Question ' + (index + 1) + ' (Incorrect)')
             }
         }
-        if (timeLeft <= 0)
+        if (answers[index] === -1 && timeLeft <= 0)
         {
             link.textContent = ('Question ' + (index + 1) + ' (Unanswered)')
         }
