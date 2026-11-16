@@ -1,4 +1,4 @@
-let timeLeft = 300;
+let timeLeft = 3;
 let timerOn = true;
 
 function randomInt(min, max) {
